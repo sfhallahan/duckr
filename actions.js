@@ -88,6 +88,7 @@
   listenerId,
 }
 
+// Modal
 {
   type: OPEN_MODAL,
 }

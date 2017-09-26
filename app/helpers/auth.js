@@ -7,7 +7,7 @@ export default function auth() {
 }
 
 export function checkIfAuthed (store) {
-  return store.getState().users.isAuthed
+  return store.getState().users.get('isAuthed')
 }
 
 export function logout () {

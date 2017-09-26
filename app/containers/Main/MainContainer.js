@@ -55,7 +55,7 @@ MainContainer.propTypes = {
 
 
 export default connect(
-  ({users}) => ({ isAuthed: users.isAuthed, isFetching: users.isFetching }),
+  ({users}) => ({ isAuthed: users.get('isAuthed'), isFetching: users.get('isFetching') }),
   (dispatch) => bindActionCreators({
     ...usersLikesActionCreators,
     ...usersActionCreators,

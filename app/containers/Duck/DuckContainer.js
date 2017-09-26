@@ -15,11 +15,11 @@ class DuckContainer extends React.Component {
 
   goToProfile (e) {
     e.stopPropagation()
-    this.context.router.push('/' + this.props.duck.uid)
+    this.context.router.push('/' + this.props.duck.get('uid'))
   }
   handleClick (e) {
      e.stopPropagation()
-     this.context.router.push('/duckDetail/' + this.props.duckId)
+     this.context.router.push('/duckDetail/' + this.props.duck.get('duckId'))
   }
 
   render () {
@@ -54,11 +54,11 @@ DuckContainer.contextTypes = {
 
 function mapStateToProps({ducks, likeCount, usersLikes}, props) {
   return {
-    duck: ducks[props.duckId],
+    duck: ducks.get(props.duckId),
     hideLikeCount: props.hideLikeCount,
     hideReplyBtn: props.hideReplyBtn,
     isLiked: usersLikes[props.duckId] === true,
-    numberOfLikes: likeCount[props.duckId],
+    numberOfLikes: likeCount.get(props.duckId),
   }
 }
 

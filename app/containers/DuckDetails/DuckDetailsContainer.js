@@ -48,11 +48,11 @@ DuckDetailsContainer.contextTypes = {
 
 function mapStateToProps({ducks, likeCount, users}, props) {
   return {
-    isFetching: ducks.isFetching || likeCount.isFetching,
-    error: ducks.error,
-    authedUser: users[users.authedId].info,
+    isFetching: ducks.get('isFetching') || likeCount.get('isFetching'),
+    error: ducks.get('error'),
+    authedUser: users.get(users.get('authedId')).get('info'),
     duckId: props.routeParams.duckId,
-    duckAlreadyFetched: !!ducks[props.routeParams.duckId]
+    duckAlreadyFetched: !!ducks.get(props.routeParams.duckId)
   }
 }
 

@@ -32,9 +32,7 @@ export function saveDuck (duck) {
 export function listenToFeed(cb, errorCB) {
   ref.child('ducks').on('value', (snapshot) => {
     const feed = snapshot.val() || {}
-    const sortedIds = Object.keys(feed).sort((a,b) => {
-      return feed[b].timestamp - feed[a].timestamp
-    })
+    const sortedIds = Object.keys(feed).sort((a,b) => feed[b].timestamp - feed[a].timestamp)
     cb({feed, sortedIds})
   }, errorCB)
 }

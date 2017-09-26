@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { header, newDuckContainer, errorMsg } from './styles.css'
 import { DuckContainer } from 'containers'
+import { List } from 'immutable'
 
 NewDucksAvailable.propTypes = {
   handleClick: PropTypes.func.isRequired,
@@ -16,7 +17,7 @@ function NewDucksAvailable({handleClick}){
 }
 
 Feed.propTypes = {
-  duckIds: PropTypes.array.isRequired,
+  duckIds: PropTypes.instanceOf(List),
   isFetching: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   newDucksAvailable: PropTypes.bool.isRequired,
@@ -29,7 +30,7 @@ export default function Feed (props) {
           ? <h1 className={header}>{'Fetching'}</h1>
           : <div>
               {newDucksAvailable ? <NewDucksAvailable handleClick={resetNewDucksAvailable}/>: null}
-              {duckIds.length <= 0
+              {duckIds.size <= 0
                 ? <p className={header}>{'Oh no!'}<br /> {'It appears there are no ducks yet'}</p>
                 : null}
               {duckIds.map((id) => (

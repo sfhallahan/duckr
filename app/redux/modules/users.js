@@ -1,6 +1,7 @@
 import auth, { saveUser, logout } from 'helpers/auth'
 import { formatUserInfo } from 'helpers/utils'
 import { fetchUser } from 'helpers/api'
+import { Map, fromJS } from 'immutable'
 
 const AUTH_USER = 'AUTH_USER'
 const UNAUTH_USER = 'UNAUTH_USER'
@@ -88,81 +89,75 @@ export function removeFetchingUser() {
 
 // Initial State
 
-const initialUserState = {
+const initialUserState = fromJS({
   lastUpdated: 0,
   info: {
     name: '',
     uid: '',
     avatar: '',
   }
-}
+})
 
 
-const initialUsersState = {
-  isFetching: true,
-  error: '',
-  isAuthed: false,
-  authedId: ''
-}
 
 // Users Reducer
 
 function user (state = initialUserState, action) {
   switch (action.type) {
     case FETCHING_USER_SUCCESS :
-      return {
-        ...state,
+      return state.merge({
         info: action.user,
         lastUpdated: action.timestamp,
-      }
+      })
     default :
       return state
   }
 }
 
+
+const initialUsersState = Map({
+  isFetching: true,
+  error: '',
+  isAuthed: false,
+  authedId: ''
+})
+
 export default function users(state = initialUsersState, action) {
   switch (action.type) {
     case AUTH_USER :
-      return {
-        ...state,
+      return state.merge({
         isAuthed: true,
         authedId: action.uid,
-      }
+      })
     case UNAUTH_USER :
-      return {
-        ...state,
+      return state.merge({
         isAuthed: false,
         authedId: '',
-      }
+      })
     case FETCHING_USER :
-      return {
-        ...state,
+      return state.merge({
         isFetching: true,
-      }
+      })
     case REMOVE_FETCHING_USER :
-      return {
-        ...state,
+      return state.merge({
         isFetching: false,
-      }
+      })
     case FETCHING_USER_FAILURE :
-      return {
-        ...state,
+      return state.merge({
         isFetching: false,
         error: action.error,
-      }
+      })
     case FETCHING_USER_SUCCESS :
       return action.user === null
-        ? {
-          ...state,
+        ? state.merge({
           isFetching: false,
           error: '',
-        }
-        : {
-          ...state,
+        })
+        : state.merge({
           isFetching: false,
           error: '',
-          [action.uid]: user(state[action.uid], action),
-        }
+          [action.uid]: user(state.get(action.uid), action),
+        })
     default :
       return state
   }

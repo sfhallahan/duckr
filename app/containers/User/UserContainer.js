@@ -51,16 +51,16 @@ UserContainer.contextTypes = {
 
 function mapStateToProps({users, usersDucks}, props) {
   const specificUsersDucks = usersDucks[props.routeParams.uid]
-  const user = users[props.routeParams.uid]
+  const user = users.get(props.routeParams.uid)
   const noUser = typeof user === 'undefined'
-  const name = noUser ? '' : user.info.name
+  const name = noUser ? '' : user.getIn(['info', 'name'])
   return {
     noUser,
     name,
-    isFetching: users.isFetching || usersDucks.isFetching,
-    error: users.error || usersDucks.error,
+    isFetching: users.get('isFetching') || usersDucks.isFetching,
+    error: users.get('error') || usersDucks.error,
     duckIds: specificUsersDucks ? specificUsersDucks.duckIds : [],
-    lastUpdatedUser: user ? user.lastUpdated : 0,
+    lastUpdatedUser: user ? user.get('lastUpdated') : 0,
     lastUpdatedDucks: specificUsersDucks ? specificUsersDucks.lastUpdated : 0,
   }
 }

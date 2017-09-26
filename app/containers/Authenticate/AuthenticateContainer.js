@@ -40,8 +40,8 @@ AuthenticateContainer.propTypes = {
 
 function mapStateToProps ({users}) {
   return {
-    isFetching: users.isFetching,
-    error: users.error,
+    isFetching: users.get('isFetching'),
+    error: users.get('error'),
   }
 }
 

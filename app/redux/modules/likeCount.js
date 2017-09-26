@@ -3,6 +3,7 @@ import { fetchLikeCount } from 'helpers/api'
 const FETCHING_COUNT = 'FETCHING_COUNT'
 const FETCHING_COUNT_ERROR = 'FETCHING_COUNT_ERROR'
 const FETCHING_COUNT_SUCCESS = 'FETCHING_COUNT_SUCCESS'
+import { Map } from 'immutable'
 
 // Like count Action Creators
 
@@ -32,7 +33,6 @@ function fetchingCountSuccess(duckId, count) {
 export function initLikeFetch(duckId) {
   return function (dispatch) {
     dispatch(fetchingCount())
-    console.log(duckId)
     fetchLikeCount(duckId)
       .then((count) => dispatch(fetchingCountSuccess(duckId, count)))
       .catch((error) => dispatch(fetchingCountError(error)))
@@ -42,10 +42,7 @@ export function initLikeFetch(duckId) {
 
 // Like count Reducers
 
-const initialState = {
-  isFetching: false,
-  error: '',
-}
+
 
 function count(state=0, action) {
   switch (action.type) {
@@ -58,33 +55,35 @@ function count(state=0, action) {
   }
 }
 
+const initialState = Map({
+  isFetching: false,
+  error: '',
+})
+
 export default function likeCount (state = initialState, action) {
   switch (action.type) {
     case FETCHING_COUNT:
-      return {
-        ...state,
+      return state.merge({
         isFetching: true,
-      }
+      })
     case FETCHING_COUNT_ERROR:
-      return {
-        ...state,
+      return state.merge({
         isFetching: false,
         error: action.error,
-      }
+      })
     case FETCHING_COUNT_SUCCESS:
-      return {
-        ...state,
-        ...initialState,
+      return state.merge({
+        isFetching: false,
+        error: '',
         [action.duckId]: action.count,
-      }
+      })
     case ADD_LIKE:
     case REMOVE_LIKE:
-      return typeof state[action.duckId] === 'undefined'
+      return typeof state.get(action.duckId) === 'undefined'
         ? state
-        : {
-          ...state,
-          [action.duckId]: count(state[action.duckId], action)
-        }
+        : state.merge({
+          [action.duckId]: count(state.get(action.duckId), action)
+        })
     default:
       return state
   }

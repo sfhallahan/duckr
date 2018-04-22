@@ -1,10 +1,12 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  font-family: sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: #5f5f5f;
+  background-color: #e6ecf0;
 }
 
 .centeredContainer {
@@ -15,14 +17,14 @@ html, body {
 }
 
 .largeHeader {
-  color: #4a90e2;
+  color: #4ab3f4;
   font-weight: 100;
   font-size: 100px;
   margin-bottom: 20px;
 }
 
 .subHeader {
-  color: #4a90e2;
+  color: #4ab3f4;
   font-size: 35px;
   text-align: center;
   line-height: 55px;
@@ -30,7 +32,7 @@ html, body {
 }
 
 .errorMsg {
-  color: #FF7777;
+  color: #ff7777;
   font-size: 22px;
   text-align: center;
 }
@@ -53,38 +55,39 @@ html, body {
 }
 
 .darkBtn {
-  background: #4a90e2;
+  background: #4ab3f4;
   color: #fff;
   text-align: center;
-  border-radius: 5px;
-  padding: 10px 15px;
+  border-radius: 25px;
+  padding: 8px 15px;
   border-style: none;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
-  border: 1px solid #4a90e2;
+  border: 1px solid #4ab3f4;
 }
 
 .darkBtn:hover {
-  background: #1877E6
+  background: #1877e6;
 }
 
 .baseDuckContainer {
-  border-radius: 5px;
-  max-width: 450px;
-  margin: 15px auto;
-  padding: 10px;
+  background: #fff;
+  width: 550px;
+  margin: 0px auto;
+  padding: 12px;
   cursor: pointer;
+  border-bottom: 1px solid #e6ecf0;
 }
 
 .baseAvatar {
   width: 75px;
-  border-radius: 3px;
+  border-radius: 50%;
   margin-right: 15px;
 }
 
 .clickable {
   cursor: pointer;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
 
@@ -92,10 +95,12 @@ html, body {
   transform: scale(1.1);
 }
 
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  font-family: sans-serif;
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-family: "Montserrat", sans-serif;
 }
 
-input, textarea {
-  font-family: sans-serif;
+input,
+textarea {
+  font-family: "Montserrat", sans-serif;
 }

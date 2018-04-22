@@ -1,5 +1,5 @@
 .duckContainer {
-  composes: baseDuckContainer from 'sharedStyles/styles.css';
+  composes: baseDuckContainer from "sharedStyles/styles.css";
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -7,11 +7,11 @@
 }
 
 .duckContainer:hover {
-  background: #F1F1F1;
+  background: #f1f1f1;
 }
 
 .avatar {
-  composes: baseAvatar from 'sharedStyles/styles.css';
+  composes: baseAvatar from "sharedStyles/styles.css";
 }
 
 .actionContainer {
@@ -19,7 +19,7 @@
   flex-direction: row;
   align-items: center;
   margin-right: 15px;
-  font-size: 18px
+  font-size: 18px;
 }
 
 .contentContainer {
@@ -36,12 +36,17 @@
   justify-content: space-between;
   width: 100%;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 700;
+}
+
+.date {
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .text {
   padding: 8px 0;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 25px;
 }
 
@@ -53,17 +58,17 @@
 }
 
 .icon {
-  composes: clickable from 'sharedStyles/styles.css';
+  composes: clickable from "sharedStyles/styles.css";
   height: 25px;
   width: 25px;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .likedIcon {
   composes: icon;
-  color: #4a90e2;;
+  color: #4a90e2;
 }
 
 .author {
-  composes: clickable from 'sharedStyles/styles.css';
+  composes: clickable from "sharedStyles/styles.css";
 }

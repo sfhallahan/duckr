@@ -1,25 +1,24 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { User } from 'components'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as usersActionCreators from 'redux/modules/users'
-import * as usersDucksActionCreators from 'redux/modules/usersDucks'
-import { staleUser, staleDucks } from 'helpers/utils'
-
+import React from "react";
+import PropTypes from "prop-types";
+import { User } from "components";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as usersActionCreators from "redux/modules/users";
+import * as usersDucksActionCreators from "redux/modules/usersDucks";
+import { staleUser, staleDucks } from "helpers/utils";
 
 class UserContainer extends React.Component {
   componentDidMount() {
-    const uid = this.props.routeParams.uid
+    const uid = this.props.routeParams.uid;
     if (this.props.noUser === true || staleUser(this.props.lastUpdatedUser)) {
-      this.props.fetchAndHandleUser(uid)
+      this.props.fetchAndHandleUser(uid);
     }
     if (this.props.noUser === true || staleDucks(this.props.lastUpdatedDucks)) {
-      this.props.fetchAndHandleUsersDucks(uid)
+      this.props.fetchAndHandleUsersDucks(uid);
     }
   }
 
-  render () {
+  render() {
     return (
       <User
         noUser={this.props.noUser}
@@ -28,7 +27,7 @@ class UserContainer extends React.Component {
         error={this.props.error}
         duckIds={this.props.duckIds}
       />
-    )
+    );
   }
 }
 
@@ -38,42 +37,41 @@ UserContainer.propTypes = {
   noUser: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   duckIds: PropTypes.array.isRequired,
-  routeParams: PropTypes.shape({uid: PropTypes.string.isRequired}),
+  routeParams: PropTypes.shape({ uid: PropTypes.string.isRequired }),
   lastUpdatedUser: PropTypes.number.isRequired,
   lastUpdatedDucks: PropTypes.number.isRequired,
   fetchAndHandleUser: PropTypes.func.isRequired,
-  fetchAndHandleUsersDucks: PropTypes.func.isRequired,
-}
+  fetchAndHandleUsersDucks: PropTypes.func.isRequired
+};
 
 UserContainer.contextTypes = {
-  routeParams: PropTypes.shape({uid: PropTypes.string.isRequired}),
-}
+  routeParams: PropTypes.shape({ uid: PropTypes.string.isRequired })
+};
 
-function mapStateToProps({users, usersDucks}, props) {
-  const specificUsersDucks = usersDucks[props.routeParams.uid]
-  const user = users.get(props.routeParams.uid)
-  const noUser = typeof user === 'undefined'
-  const name = noUser ? '' : user.getIn(['info', 'name'])
+function mapStateToProps({ users, usersDucks }, props) {
+  const specificUsersDucks = usersDucks[props.routeParams.uid];
+  const user = users.get(props.routeParams.uid);
+  const noUser = typeof user === "undefined";
+  const name = noUser ? "" : user.getIn(["info", "name"]);
   return {
     noUser,
     name,
-    isFetching: users.get('isFetching') || usersDucks.isFetching,
-    error: users.get('error') || usersDucks.error,
+    isFetching: users.get("isFetching") || usersDucks.isFetching,
+    error: users.get("error") || usersDucks.error,
     duckIds: specificUsersDucks ? specificUsersDucks.duckIds : [],
-    lastUpdatedUser: user ? user.get('lastUpdated') : 0,
-    lastUpdatedDucks: specificUsersDucks ? specificUsersDucks.lastUpdated : 0,
-  }
+    lastUpdatedUser: user ? user.get("lastUpdated") : 0,
+    lastUpdatedDucks: specificUsersDucks ? specificUsersDucks.lastUpdated : 0
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    ...usersActionCreators,
-    ...usersDucksActionCreators
-  }, dispatch)
+  return bindActionCreators(
+    {
+      ...usersActionCreators,
+      ...usersDucksActionCreators
+    },
+    dispatch
+  );
 }
 
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(UserContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(UserContainer);

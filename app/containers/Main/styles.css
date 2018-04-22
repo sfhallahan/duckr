@@ -4,5 +4,6 @@
 
 .innerContainer {
   max-width: 900px;
+  padding: 16px;
   margin: 0px auto;
 }
